@@ -1,3 +1,5 @@
 button {
     font-size: 5vh;
+    background: transparent;
+    border: 0;
 }
