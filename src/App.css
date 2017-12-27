@@ -1,0 +1,25 @@
+.App {
+    height: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+    align-items: center;
+}
+
+.reset.upper {
+    position: absolute;
+    top: 1%;
+    left: 1%;
+    transform: scale(-1, -1);
+}
+
+.reset.lower {
+    position: absolute;
+    bottom: 1%;
+    right: 1%;
+}
+
+.eventLog {
+    height: 20vh;
+}
