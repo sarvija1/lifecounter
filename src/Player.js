@@ -12,7 +12,7 @@ class Player extends Component {
     super(props, ctx)
     this.state = {
       number: props.number,
-      lifeTotal: parseInt(props.startingLifeTotal, 10)
+      lifeTotal: parseInt(localStorage.getItem(props.number) || props.startingLifeTotal, 10)
     }
     this.increaseLifeTotal = this.increaseLifeTotal.bind(this)
     this.decreaseLifeTotal = this.decreaseLifeTotal.bind(this)
@@ -21,7 +21,10 @@ class Player extends Component {
     this.resetOnDoubleTap = this.resetOnDoubleTap.bind(this)
   }
 
-  modifyLifeTotal(fn) { this.setState(L.modify(['lifeTotal'], i => fn(i), this.state)) }
+  modifyLifeTotal(fn) {
+    this.setState(L.modify(['lifeTotal'], i => fn(i), this.state))
+    localStorage.setItem(this.state.number, this.state.lifeTotal)
+  }
 
   increaseLifeTotal() { this.modifyLifeTotal(i => i + 1) }
 
