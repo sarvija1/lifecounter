@@ -17,6 +17,7 @@
 .lifeDisplay {
     font-size: 20vh;
     font-weight: 600;
+    width: 150px;
 }
 
 .lifeChangeEventBubble {
@@ -51,11 +52,11 @@
 
 .Player:not(.reversed) .lifeChangeEventBubble {
     top: 0px;
-    right: 6vh;
+    right: 11vh;
 }
 
 .Player.reversed .lifeChangeEventBubble {
     transform: scale(-1, -1);
     bottom: 0px;
-    left: 6vh;
+    left: 11vh;
 }
