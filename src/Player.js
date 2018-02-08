@@ -29,7 +29,13 @@ class Player extends Component {
     this.setState(L.modify(['lifeTotal'], i => fn(i), state))
     localStorage.setItem(this.state.number, this.state.lifeTotal)
     window.clearTimeout(this.differenceDebounce)
-    this.differenceDebounce = window.setTimeout(() => this.setState(L.modify(['difference'], () => 0, this.state)), 2000)
+    this.differenceDebounce = window.setTimeout(() => {
+      this.differenceElement.classList.add('fadeOut')
+      window.setTimeout(() => {
+        this.setState(L.modify(['difference'], () => 0, this.state))
+        this.differenceElement.classList.remove('fadeout')
+      }, 500)
+    }, 2000)
   }
 
   increaseLifeTotal() {
@@ -47,7 +53,7 @@ class Player extends Component {
   render() {
     return (
       <div className={`Player ${this.props.layout === 'reversed' ? 'reversed' : ''}`}>
-        <div className={`lifeChangeEventBubble ${this.state.difference !== 0 ? 'show' : ''}`}>{this.state.difference}</div>
+        <div ref={i => this.differenceElement = i} className={`lifeChangeEventBubble ${this.state.difference !== 0 ? 'show' : 'hide'}`}>{this.state.difference}</div>
         <ChangeLifeTotalButton handler={this.decreaseLifeTotal} label="-"/>
         <div className="lifeDisplay" onTouchTap={this.resetOnDoubleTap}>{this.state.lifeTotal}</div>
         <ChangeLifeTotalButton handler={this.increaseLifeTotal} label="+"/>
