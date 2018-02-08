@@ -32,7 +32,7 @@ class Player extends Component {
 
   reset() { this.modifyLifeTotal(() => 20) }
 
-  resetOnDoubleTap(event) { isDblTouchTap(event) ? this.reset() : {} }
+  resetOnDoubleTap(event) { return isDblTouchTap(event) ? this.reset() : {} }
 
   render() {
     return (
