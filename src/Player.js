@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import './Player.css'
 import ChangeLifeTotalButton from './ChangeLifeTotalButton'
 import * as L from 'partial.lenses'
+import injectTapEventPlugin from "react-tap-event-plugin"
+import isDblTouchTap from "./isDblTouchTap"
+
+injectTapEventPlugin()
 
 class Player extends Component {
   constructor(props, ctx) {
@@ -14,6 +18,7 @@ class Player extends Component {
     this.decreaseLifeTotal = this.decreaseLifeTotal.bind(this)
     this.reset = this.reset.bind(this)
     this.modifyLifeTotal = this.modifyLifeTotal.bind(this)
+    this.resetOnDoubleTap = this.resetOnDoubleTap.bind(this)
   }
 
   modifyLifeTotal(fn) { this.setState(L.modify(['lifeTotal'], i => fn(i), this.state)) }
@@ -24,11 +29,13 @@ class Player extends Component {
 
   reset() { this.modifyLifeTotal(() => 20) }
 
+  resetOnDoubleTap(event) { isDblTouchTap(event) ? this.reset() : {} }
+
   render() {
     return (
       <div className={`Player ${this.props.layout === 'reversed' ? 'reversed' : ''}`}>
         <ChangeLifeTotalButton handler={this.increaseLifeTotal} label="+"/>
-        <div className="lifeDisplay">{this.state.lifeTotal}</div>
+        <div className="lifeDisplay" onTouchTap={this.resetOnDoubleTap}>{this.state.lifeTotal}</div>
         <ChangeLifeTotalButton handler={this.decreaseLifeTotal} label="-"/>
       </div>
     )
