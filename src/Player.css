@@ -1,4 +1,5 @@
 .Player {
+    position: relative;
     display: flex;
     flex-direction: row;
     flex: 1;
@@ -16,4 +17,30 @@
 .lifeDisplay {
     font-size: 20vh;
     font-weight: 600;
+}
+
+.lifeChangeEventBubble {
+    display: none;
+    position: absolute;
+    font-size: 6vh;
+    font-weight: 600;
+    color: white;
+    background-color: silver;
+    border-radius: 4vh;
+    padding: 2vh;
+}
+
+.lifeChangeEventBubble.show {
+    display: block;
+}
+
+.Player:not(.reversed) .lifeChangeEventBubble {
+    top: 0px;
+    right: 6vh;
+}
+
+.Player.reversed .lifeChangeEventBubble {
+    transform: scale(-1, -1);
+    bottom: 0px;
+    left: 6vh;
 }
