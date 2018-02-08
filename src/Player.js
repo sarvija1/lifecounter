@@ -55,8 +55,10 @@ class Player extends Component {
       <div className={`Player ${this.props.layout === 'reversed' ? 'reversed' : ''}`}>
         <div
           ref={i => this.differenceElement = i}
-          className={`lifeChangeEventBubble ${this.state.difference !== 0 ? 'show' : 'hide'}`}>
-            {this.state.difference > 0 ? '+' : ''}{this.state.difference}
+          className={`lifeChangeEventBubble
+            ${this.state.difference !== 0 ? 'show' : 'hide'}
+            ${this.state.difference < 0 ? 'negative' : 'positive'}`}>
+              {this.state.difference > 0 ? '+' : ''}{this.state.difference}
         </div>
         <ChangeLifeTotalButton handler={this.decreaseLifeTotal} label="-"/>
         <div className="lifeDisplay" onTouchTap={this.resetOnDoubleTap}>{this.state.lifeTotal}</div>

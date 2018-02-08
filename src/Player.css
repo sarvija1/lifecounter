@@ -24,7 +24,6 @@
     font-size: 6vh;
     font-weight: 600;
     color: white;
-    background-color: silver;
     border-radius: 4vh;
     padding: 2vh;
 }
@@ -40,6 +39,14 @@
 .lifeChangeEventBubble.fadeOut {
     opacity: 0;
     transition: opacity 0.5s;
+}
+
+.lifeChangeEventBubble.positive {
+    background-color: lightgreen;
+}
+
+.lifeChangeEventBubble.negative {
+    background-color: hotpink;
 }
 
 .Player:not(.reversed) .lifeChangeEventBubble {
