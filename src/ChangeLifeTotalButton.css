@@ -3,4 +3,6 @@ button {
     background: transparent;
     border: 0;
     touch-action: manipulation;
+    padding-left: 7vh;
+    padding-right: 7vh;
 }

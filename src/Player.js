@@ -34,9 +34,9 @@ class Player extends Component {
   render() {
     return (
       <div className={`Player ${this.props.layout === 'reversed' ? 'reversed' : ''}`}>
-        <ChangeLifeTotalButton handler={this.increaseLifeTotal} label="+"/>
-        <div className="lifeDisplay" onTouchTap={this.resetOnDoubleTap}>{this.state.lifeTotal}</div>
         <ChangeLifeTotalButton handler={this.decreaseLifeTotal} label="-"/>
+        <div className="lifeDisplay" onTouchTap={this.resetOnDoubleTap}>{this.state.lifeTotal}</div>
+        <ChangeLifeTotalButton handler={this.increaseLifeTotal} label="+"/>
       </div>
     )
   }
