@@ -7,6 +7,8 @@ class App extends Component {
     super(props, ctx)
     this.players = []
     this.registerPlayer = this.registerPlayer.bind(this)
+
+    window.document.addEventListener("touchmove", event => event.preventDefault())
   }
 
   registerPlayer(player) { this.players = this.players.concat(player) }
