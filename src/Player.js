@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import './Player.css'
 import ChangeLifeTotalButton from './ChangeLifeTotalButton'
-import * as L from 'partial.lenses'
 import injectTapEventPlugin from "react-tap-event-plugin"
 import isDblTouchTap from "./isDblTouchTap"
 
@@ -23,30 +22,31 @@ class Player extends Component {
     this.reset = this.reset.bind(this)
     this.modifyLifeTotal = this.modifyLifeTotal.bind(this)
     this.resetOnDoubleTap = this.resetOnDoubleTap.bind(this)
+    this.persistLifeTotal = this.persistLifeTotal.bind(this)
   }
 
-  modifyLifeTotal(fn, state = this.state) {
-    this.setState(L.modify(['lifeTotal'], i => fn(i), state))
-    localStorage.setItem(this.state.number, this.state.lifeTotal)
+  modifyLifeTotal(step) {
+    this.setState(
+        (prevState) => ({ lifeTotal: prevState.lifeTotal + step, difference: prevState.difference + step }),
+        this.persistLifeTotal
+    )
     window.clearTimeout(this.differenceDebounce)
     this.differenceDebounce = window.setTimeout(() => {
-      this.differenceElement.classList.add('fadeOut')
-      window.setTimeout(() => {
-        this.setState(L.modify(['difference'], () => 0, this.state))
-        this.differenceElement.classList.remove('fadeout')
-      }, 500)
+        this.differenceElement.classList.add('fadeOut')
+        window.setTimeout(() => {
+            this.setState({ difference: 0 })
+            this.differenceElement.classList.remove('fadeout')
+        }, 500)
     }, 2000)
   }
 
-  increaseLifeTotal() {
-    this.modifyLifeTotal(i => i + 1, L.modify(['difference'], d => d + 1, this.state))
-  }
+  persistLifeTotal() { localStorage.setItem(this.state.number, this.state.lifeTotal) }
 
-  decreaseLifeTotal() {
-    this.modifyLifeTotal(i => i === 0 ? 0 : i - 1, L.modify(['difference'], d => d - 1, this.state))
-  }
+  increaseLifeTotal() { this.modifyLifeTotal(1) }
 
-  reset() { this.modifyLifeTotal(() => 20) }
+  decreaseLifeTotal() { this.modifyLifeTotal(-1) }
+
+  reset() { this.setState({ lifeTotal: 20 }, this.persistLifeTotal) }
 
   resetOnDoubleTap(event) { return isDblTouchTap(event) ? this.reset() : {} }
 
