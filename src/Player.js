@@ -46,7 +46,7 @@ class Player extends Component {
 
   decreaseLifeTotal() { this.modifyLifeTotal(-1) }
 
-  reset() { this.setState({ lifeTotal: 20 }, this.persistLifeTotal) }
+  reset() { this.setState({ lifeTotal: this.state.lifeTotal == 20 ? 40 : 20 }, this.persistLifeTotal) }
 
   resetOnDoubleTap(event) { return isDblTouchTap(event) ? this.reset() : {} }
 
