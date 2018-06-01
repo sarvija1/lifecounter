@@ -6,4 +6,5 @@ button {
     padding-left: 7vh;
     padding-right: 7vh;
     height: 100%;
+    -webkit-tap-highlight-color: transparent;
 }
